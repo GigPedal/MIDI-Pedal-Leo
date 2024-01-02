@@ -8,3 +8,8 @@ Guitar Amp Modeler software such as Amplitube, Guitar Rig, Bias FX, Neural Amp M
 
 ## Hardware Description
 Aurduino Leonardo is used in this project.
+
+- Aurduino Leonardo x1
+- Footswitch x4
+
+
