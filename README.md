@@ -1,19 +1,19 @@
-# Simple MIDI Pedal
+# MIDI Pedal Leo
 
 
 
-Simple MIDI Pedal is a midi controller based on Arduino. It is used to control Guitar Amp Simulation software or Digital Audio Workstation that supports midi control.
+MIDI Pedal Leo is a midi controller based on Arduino. It is used to control Guitar Amp Simulation software or Digital Audio Workstation that supports midi control.
 
 
 
 ## Introduction
 
 
-Guitar Amp Modeler software such as Amplitube, Guitar Rig, Bias FX, Neural Amp Modeler all support Midi controller. When a guitar player uses Guitar Amp Simulation software to play guitar, he/she may have difficulties controlling the software with mouse or keyboard. Therefore, a foot controller is necessary. Simple MIDI Pedal is designed for this purpose. 
+Guitar Amp Modeler software such as Amplitube, Guitar Rig, Bias FX, Neural Amp Modeler all support Midi controller. When a guitar player uses Guitar Amp Simulation software to play guitar, he/she may have difficulties controlling the software with mouse or keyboard. Therefore, a foot controller is necessary. MIDI Pedal Leo is designed for this purpose. 
 
 If you are interested in playing guitar with software such as Neural Amp Modeler and other Amp Sim application, please come to my Gig Pedal (https://gigpedal.blogspot.com/)
 
-Simple MIDI Pedal is compatible with PC and Mac. It's plug and play, no need to install any device driver.
+MIDI Pedal Leo is compatible with PC and Mac. It's plug and play, no need to install any device driver.
 
 
 ## Advantage of Building Your Own MIDI Controller

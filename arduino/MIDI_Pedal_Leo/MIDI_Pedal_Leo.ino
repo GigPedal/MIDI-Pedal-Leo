@@ -1,26 +1,36 @@
-#include <MIDIUSB.h>  
+/**********************************************************************
+Program name     : MIDI Pedal Leo
+Version          : 0.01
+Author           : CYNOLEO
+Date(MMDDYY)     : 010324
+DESCRIPTION      : 
+MIDI Pedal Leo is a MIDI controller with 4 foot switches. 
+Short click will make Simple MIDI Pedal send out MIDI CC command 
+Long Press will make Simple MIDI Pedal send out MIDI PC command
+-----------------------------------------------------------------------
+More details about Simple MIDI Pedal can be found on Gig Pedal Website
+https://gigpedal.blogspot.com/
+***********************************************************************/
+#include <MIDIUSB.h>
 #include <ResponsiveAnalogRead.h>
 #include <OneButton.h>
 
-#define DEBUG 1
+#define DEBUG 0
 
 #define MIDI_CHANNEL 0 
 #define BUTTON0_PIN 2
 #define BUTTON1_PIN 3
 #define BUTTON2_PIN 4
 #define BUTTON3_PIN 5
-#define POT0_PIN A0
-#define BUTTON0_CONTROLLER_NUMBER 20 // CLICK CONGROLER NUMBER
+#define BUTTON0_CONTROLLER_NUMBER 20      // CLICK CONGROLER NUMBER
 #define BUTTON1_CONTROLLER_NUMBER 21
 #define BUTTON2_CONTROLLER_NUMBER 22
 #define BUTTON3_CONTROLLER_NUMBER 23
-#define BUTTON0_PROGRAM_NUMBER 1// LONG PRESS Program Change Number
+#define BUTTON0_PROGRAM_NUMBER 1          // LONG PRESS Program Change Number
 #define BUTTON1_PROGRAM_NUMBER 2
 #define BUTTON2_PROGRAM_NUMBER 6
 #define BUTTON3_PROGRAM_NUMBER 8
-#define POT0_CONTROLLER_Number 31
-#define LONG_PRESS_INTERVAL 2000 //LONG PRESS TIME 
-#define SUPER_LONG_PRESS_INVERVAL 5000 // SUPER LONG PRESS TIME
+#define LONG_PRESS_INTERVAL 2000          //LONG PRESS TIME 
 #define BUTTON_HIGH_VALUE 0
 #define BUTTON_LOW_VALUE 127
 
@@ -39,15 +49,8 @@ bool button1LongPressedFired;
 bool button2LongPressedFired;
 bool button3LongPressedFired;
 
-bool button0superLongPressFired;
-bool button1superLongPressFired;
-bool button2superLongPressFired;
-bool button3superLongPressFired;
-
 const int buttonHighValue = BUTTON_HIGH_VALUE;  
 const int buttonLowValue = BUTTON_LOW_VALUE;    
-
-ResponsiveAnalogRead pot0(POT0_PIN, true);
 
 byte midiCh = MIDI_CHANNEL; 
 
@@ -83,26 +86,8 @@ void loop() {
   button1.tick();
   button2.tick();
   button3.tick();
-
-  potCtrl();
 }
 
-//--- Pot Functions ---
-void potCtrl() {
-  int pot0Value;
-  int pot0MidiValue;
-
-  pot0.update();
-
-  if(pot0.hasChanged()) { 
-    pot0Value =  pot0.getRawValue();
-    pot0MidiValue = map(pot0Value, 0, 1023, 127, 0);
-    controlChange(midiCh, POT0_CONTROLLER_Number, pot0MidiValue); 
-    #if defined(DEBUG) 
-    Serial.println(pot0MidiValue);
-    #endif
-  }
-}
 //----------Button Short Press Control Functions----------
 void button0ClickCtrl() {
   #if defined(DEBUG) 
@@ -167,7 +152,6 @@ void button0LongPressStopCtrl() {
   Serial.println("Button0 Long Press Stop");
   #endif 
   button0LongPressedFired = 0;
-  button0superLongPressFired = 0;
 }
 
 void button1LongPressStopCtrl() {
@@ -207,16 +191,7 @@ void button0DuringLongPressCtrl(){
     Serial.println("Sent Button 0 MIDI Message");
     #endif
   }
-  button0LongPressedFired = 1;
-
-  // superLongPress
-  if(button0.getPressedMs() >= SUPER_LONG_PRESS_INVERVAL){
-    if(!button0superLongPressFired){
-      button0superLongPressCtrl();
-      button0superLongPressFired = 1;
-    }
-  }
-  
+  button0LongPressedFired = 1;  
 }
 
 void button1DuringLongPressCtrl(){
@@ -234,16 +209,7 @@ void button1DuringLongPressCtrl(){
     Serial.println("Sent Button 1 MIDI Message");
     #endif
   }
-  button1LongPressedFired = 1;
-
-  // superLongPress
-  if(button1.getPressedMs() >= SUPER_LONG_PRESS_INVERVAL){
-    if(!button1superLongPressFired){
-      button1superLongPressCtrl();
-      button1superLongPressFired = 1;
-    }
-  }
-  
+  button1LongPressedFired = 1;  
 }
 
 void button2DuringLongPressCtrl(){
@@ -262,15 +228,6 @@ void button2DuringLongPressCtrl(){
     #endif
   }
   button2LongPressedFired = 1;
-
-  // superLongPress
-  if(button2.getPressedMs() >= SUPER_LONG_PRESS_INVERVAL){
-    if(!button2superLongPressFired){
-      button2superLongPressCtrl();
-      button2superLongPressFired = 1;
-    }
-  }  
-  
 }
 
 void button3DuringLongPressCtrl(){
@@ -288,40 +245,9 @@ void button3DuringLongPressCtrl(){
     Serial.println("Sent Button 3 MIDI Message");
     #endif
   }
-  button3LongPressedFired = 1;
-
-  // superLongPress
-  if(button3.getPressedMs() >= SUPER_LONG_PRESS_INVERVAL){
-    if(!button3superLongPressFired){
-      button3superLongPressCtrl();
-      button3superLongPressFired = 1;
-    }
-  }   
+  button3LongPressedFired = 1;  
 }
 
-void button0superLongPressCtrl(){
-  #if defined(DEBUG) 
-  Serial.println("Button0 Super Long Press Fired!");
-  #endif  
-}
-
-void button1superLongPressCtrl(){
-  #if defined(DEBUG) 
-  Serial.println("Button1 Super Long Press Fired!");
-  #endif  
-}
-
-void button2superLongPressCtrl(){
-  #if defined(DEBUG) 
-  Serial.println("Button2 Super Long Press Fired!");
-  #endif  
-}
-
-void button3superLongPressCtrl(){
-  #if defined(DEBUG) 
-  Serial.println("Button3 Super Long Press Fired!");
-  #endif  
-}
 //--- Midi Functions ---
 
 void controlChange(byte channel, byte control, byte value) {
@@ -333,4 +259,3 @@ void programChange(byte channel, byte program) {
   midiEventPacket_t pc = {0x0C, 0xC0 | channel, program, 0};
   MidiUSB.sendMIDI(pc);
 }
-
