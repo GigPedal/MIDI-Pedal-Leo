@@ -7,6 +7,8 @@ MIDI Pedal Leo is a foot MIDI controller based on Arduino Leonardo. For MIDI Ped
 
 Guitar players may use foot MIDI Pedal to control Guitar Amplifier/Effects Software and Hardware. This will add flexibility, convenience, and creative possibilities to their gear setups. 
 
+## MIDI Pedal Functions
+
 Here are some common reasons why guitarists choose to incorporate MIDI Pedal into their rig:
 
 - Eliminates the need for manual adjustments on each individual device, providing a centralized control hub for the entire rig
@@ -56,6 +58,6 @@ etc...
 ## Materials used
 - Arduino Leonardo
 - Footswitch
-- Wires 
+- Wire
 
 
